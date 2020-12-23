@@ -22,7 +22,7 @@ while true; do
                 ./post.sh ${request[2]} ${request[3]} ${request[4]} >${request[0]}.pipe &
                 ;;
             show)
-                ./show.sh ${request[2]} ${request[0]} &
+                ./show.sh ${request[2]} ${request[0]} > $2.pipe & 
                 ;;
             shutdown)
                 exit 0

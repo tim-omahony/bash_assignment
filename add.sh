@@ -1,10 +1,13 @@
 #!/bin/bash
 
-if { set -C; 2>/dev/null >./$1.lock;  }; then
-    trap "rm -f ./$1.lock" EXIT
+arguments=($@)
+printf -v lockfile_name "%s_" "${arguments[@]}"
+lockfile_name=${lockfile_name%?}
+if { set -C; 2>/dev/null >./$lockfile_name.lock; }; then
+    trap "rm -f ./$lockfile_name.lock" EXIT
 else
     echo "Lock file exists… exiting"
-    exit 1
+    exit
 fi
 if [ "$#" -ne 2 ]; then
     echo "Error: parameters problem"
